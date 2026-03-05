@@ -61,18 +61,15 @@ public class ManageComputers {
 
     } //End of main
 
-    //-----------------------------
     //Display menu and get user selection, return it
     private static String getMenuSelection(Scanner s) {
         String menuOption="";
 
         //Display menu options on-screen
-        System.out.println("----------");
         System.out.println("A) Add Computer");
         System.out.println("D) Delete Computer");
         System.out.println("E) Edit Computer");
         System.out.println("X) eXit");
-        System.out.println("----------");
 
         //Get menu selection from keyboard
         System.out.print("Enter menu selection:");
@@ -83,7 +80,6 @@ public class ManageComputers {
         return menuOption;
     } //End of getMenuSelection
 
-    //-----------------------------
     //Show data for all laptops and desktops stored in ArrayList<Computer> create in main() method
     private static void showComputers(ArrayList<Object> computers) {
         int computerListNumber=0; //This variable is used to hold the "list number" for each computer, starting at 1.
@@ -104,7 +100,6 @@ public class ManageComputers {
 
     } //End of showComputers
 
-    //-----------------------------
     //Add a new Laptop or Desktop computer to the ArrayList<Computer>
     private static void addComputer(ArrayList<Object> computers, Scanner s) {
         String computerType="";
@@ -153,7 +148,6 @@ public class ManageComputers {
         }
     } //End of addComputer
 
-    //-----------------------------
     //Delete a specified computer from the ArrayList
     private static void deleteComputer(ArrayList<Object> computers, Scanner s) {
         int computerListNumberToDelete=0;
@@ -174,7 +168,6 @@ public class ManageComputers {
 
     } //End of deleteComputer
 
-    //-----------------------------
     //Edit a computer. Since Laptop and Desktop are mutable classses/object get new data values and replace old
     //attribute values in object being edited using object setter methods
     private static void editComputer(ArrayList<Object> computers, Scanner s) {
@@ -258,7 +251,6 @@ public class ManageComputers {
 
     } //End of editComputer
 
-    //-----------------------------
     //Helper method to get data common to Laptop and Desktop (CPU, RAM and disk) objects. Returns a Computer-type object
     //holding these values as attributes. All fields are whitelist validated before the object is returned.
     private static Computer getComputerData(Scanner s) {
@@ -271,7 +263,7 @@ public class ManageComputers {
 
     } //End of getComputerData
 
-    //-----------------------------
+   
     //Whitelist input validation helper: repeatedly prompts the user until they enter a value that
     //exists in the comma-separated whitelist string. Returns the accepted value.
     //To add or remove allowed values, edit the whitelist constants declared at the top of this class.
