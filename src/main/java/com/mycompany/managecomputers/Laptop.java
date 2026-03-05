@@ -1,39 +1,27 @@
-//Laptop computer: uses composition to include a Computer object, and adds screen size
+//Laptop computer: uses composition to include a Computer object, and adds screen size.
+//This class is immutable - all fields are set once via the constructor and cannot be changed afterwards.
 
 public class Laptop { //No longer extends Computer - uses composition instead
 
-    //Laptop now HAS-A Computer rather than IS-A Computer
-    private Computer computer;
-    private String screenSize=null;
+    //Laptop now HAS-A Computer rather than IS-A Computer.
+    //Both fields are final, making the object immutable once constructed.
+    private final Computer computer;
+    private final String screenSize;
 
-    //Constructors
+    //No-arg constructor sets all fields to null
     public Laptop() {
-        this.computer = new Computer(); //Initialise the composed Computer object
+        this.computer   = new Computer(); //Initialise the composed Computer object with null fields
+        this.screenSize = null;
     }
 
+    //Parameterised constructor - the only way to set field values
     public Laptop(String CPU, String RAM, String disk, String screenSize) {
-        this.computer = new Computer(CPU, RAM, disk); //Composed Computer object holds CPU, RAM and disk
-        this.screenSize=screenSize;
+        this.computer   = new Computer(CPU, RAM, disk); //Composed Computer object holds CPU, RAM and disk
+        this.screenSize = screenSize;
     }
 
-    //Setters - delegate CPU, RAM and disk to the composed Computer object
-    public void setCPU(String CPU) {
-        this.computer.setCPU(CPU);
-    }
-
-    public void setRAM(String RAM) {
-        this.computer.setRAM(RAM);
-    }
-
-    public void setDisk(String disk) {
-        this.computer.setDisk(disk);
-    }
-
-    public void setScreenSize(String screenSize) {
-        this.screenSize=screenSize;
-    }
-
-    //Getters - delegate CPU, RAM and disk to the composed Computer object
+    //Getters only - no setters, as this class is immutable.
+    //CPU, RAM and disk are retrieved by delegating to the composed Computer object.
     public String getCPU() {
         return this.computer.getCPU();
     }
