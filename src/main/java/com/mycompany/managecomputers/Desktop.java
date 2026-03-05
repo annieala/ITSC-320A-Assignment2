@@ -1,34 +1,58 @@
-//Desktop computer: adds GPU type
+//Desktop computer: uses composition to include a Computer object, and adds GPU type
 
-public class Desktop extends Computer { //Inherits from Computer
-    String GPUType=null;
+public class Desktop { //No longer extends Computer - uses composition instead
+
+    //Desktop now HAS-A Computer rather than IS-A Computer
+    private Computer computer;
+    private String GPUType=null;
 
     //Constructors
-    public Desktop() {} //No-arg constructor
+    public Desktop() {
+        this.computer = new Computer(); //Initialise the composed Computer object
+    }
 
     public Desktop(String CPU, String RAM, String disk, String GPUType) {
-        //Inherited from Computer superclass
-        this.CPU=CPU;
-        this.RAM=RAM;
-        this.disk=disk;
-
-        //Only in Desktop subclass
+        this.computer = new Computer(CPU, RAM, disk); //Composed Computer object holds CPU, RAM and disk
         this.GPUType=GPUType;
     }
 
-    //Setter
+    //Setters - delegate CPU, RAM and disk to the composed Computer object
+    public void setCPU(String CPU) {
+        this.computer.setCPU(CPU);
+    }
+
+    public void setRAM(String RAM) {
+        this.computer.setRAM(RAM);
+    }
+
+    public void setDisk(String disk) {
+        this.computer.setDisk(disk);
+    }
+
     public void setGPUType(String GPUType) {
         this.GPUType=GPUType;
     }
 
-    //Getter
+    //Getters - delegate CPU, RAM and disk to the composed Computer object
+    public String getCPU() {
+        return this.computer.getCPU();
+    }
+
+    public String getRAM() {
+        return this.computer.getRAM();
+    }
+
+    public String getDisk() {
+        return this.computer.getDisk();
+    }
+
     public String getGPUType() {
         return this.GPUType;
     }
 
     //Return formatted version of data
     public String toString() {
-        return "Type:Desktop\tCPU:" + this.CPU + "\tRAM:" + this.RAM + "\tDisk:" + this.disk + "\tGPU:" + this.GPUType;
+        return "Type:Desktop\tCPU:" + this.computer.getCPU() + "\tRAM:" + this.computer.getRAM() + "\tDisk:" + this.computer.getDisk() + "\tGPU:" + this.GPUType;
     }
 
 }
