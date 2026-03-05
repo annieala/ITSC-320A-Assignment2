@@ -1,39 +1,27 @@
-//Desktop computer: uses composition to include a Computer object, and adds GPU type
+//Desktop computer: uses composition to include a Computer object, and adds GPU type.
+//This class is immutable - all fields are set once via the constructor and cannot be changed afterwards.
 
 public class Desktop { //No longer extends Computer - uses composition instead
 
-    //Desktop now HAS-A Computer rather than IS-A Computer
-    private Computer computer;
-    private String GPUType=null;
+    //Desktop now HAS-A Computer rather than IS-A Computer.
+    //Both fields are final, making the object immutable once constructed.
+    private final Computer computer;
+    private final String GPUType;
 
-    //Constructors
+    //No-arg constructor sets all fields to null
     public Desktop() {
-        this.computer = new Computer(); //Initialise the composed Computer object
+        this.computer = new Computer(); //Initialise the composed Computer object with null fields
+        this.GPUType  = null;
     }
 
+    //Parameterised constructor - the only way to set field values
     public Desktop(String CPU, String RAM, String disk, String GPUType) {
         this.computer = new Computer(CPU, RAM, disk); //Composed Computer object holds CPU, RAM and disk
-        this.GPUType=GPUType;
+        this.GPUType  = GPUType;
     }
 
-    //Setters - delegate CPU, RAM and disk to the composed Computer object
-    public void setCPU(String CPU) {
-        this.computer.setCPU(CPU);
-    }
-
-    public void setRAM(String RAM) {
-        this.computer.setRAM(RAM);
-    }
-
-    public void setDisk(String disk) {
-        this.computer.setDisk(disk);
-    }
-
-    public void setGPUType(String GPUType) {
-        this.GPUType=GPUType;
-    }
-
-    //Getters - delegate CPU, RAM and disk to the composed Computer object
+    //Getters only - no setters, as this class is immutable.
+    //CPU, RAM and disk are retrieved by delegating to the composed Computer object.
     public String getCPU() {
         return this.computer.getCPU();
     }
