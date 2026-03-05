@@ -1,47 +1,39 @@
-//Desktop computer: uses composition to include a Computer object, and adds GPU type.
+//Computer class: manages computer CPU, RAM and Disk information.
 //This class is immutable - all fields are set once via the constructor and cannot be changed afterwards.
-//Implements the device interface to allow Laptop and Desktop to be stored in a single ArrayList<device>.
+//Implements the device interface to allow it to be used as a common type with Laptop and Desktop.
 
-public class Desktop implements ManageComputers.device { //No longer extends Computer - uses composition instead
+public class Computer implements ManageComputers.device {
 
-    //Desktop now HAS-A Computer rather than IS-A Computer.
-    //Both fields are final, making the object immutable once constructed.
-    private final Computer computer;
-    private final String GPUType;
+    //Fields are private and final so they can only be assigned once, making the object immutable
+    private final String CPU;
+    private final String RAM;
+    private final String disk;
 
     //No-arg constructor sets all fields to null
-    public Desktop() {
-        this.computer = new Computer(); //Initialise the composed Computer object with null fields
-        this.GPUType  = null;
+    public Computer() {
+        this.CPU  = null;
+        this.RAM  = null;
+        this.disk = null;
     }
 
     //Parameterised constructor - the only way to set field values
-    public Desktop(String CPU, String RAM, String disk, String GPUType) {
-        this.computer = new Computer(CPU, RAM, disk); //Composed Computer object holds CPU, RAM and disk
-        this.GPUType  = GPUType;
+    public Computer(String CPU, String RAM, String disk) {
+        this.CPU  = CPU;
+        this.RAM  = RAM;
+        this.disk = disk;
     }
 
-    //Getters only - no setters, as this class is immutable.
-    //CPU, RAM and disk are retrieved by delegating to the composed Computer object.
+    //Getters only - no setters, as this class is immutable
     public String getCPU() {
-        return this.computer.getCPU();
+        return this.CPU;
     }
 
     public String getRAM() {
-        return this.computer.getRAM();
+        return this.RAM;
     }
 
     public String getDisk() {
-        return this.computer.getDisk();
-    }
-
-    public String getGPUType() {
-        return this.GPUType;
-    }
-
-    //Return formatted version of data
-    public String toString() {
-        return "Type:Desktop\tCPU:" + this.computer.getCPU() + "\tRAM:" + this.computer.getRAM() + "\tDisk:" + this.computer.getDisk() + "\tGPU:" + this.GPUType;
+        return this.disk;
     }
 
 }
