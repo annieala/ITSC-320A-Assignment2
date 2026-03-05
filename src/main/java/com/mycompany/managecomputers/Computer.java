@@ -1,33 +1,28 @@
-//Computer class: manages computer CPU, RAM and Disk information
+//Computer class: manages computer CPU, RAM and Disk information.
+//This class is immutable - all fields are set once via the constructor and cannot be changed afterwards.
 
 public class Computer {
-    String CPU=null;
-    String RAM=null;
-    String disk=null;
 
-    //Constructors
-    public Computer() {} //No-arg constructor
+    //Fields are private and final so they can only be assigned once, making the object immutable
+    private final String CPU;
+    private final String RAM;
+    private final String disk;
 
+    //No-arg constructor sets all fields to null
+    public Computer() {
+        this.CPU  = null;
+        this.RAM  = null;
+        this.disk = null;
+    }
+
+    //Parameterised constructor - the only way to set field values
     public Computer(String CPU, String RAM, String disk) {
-        this.CPU=CPU;
-        this.RAM=RAM;
-        this.disk=disk;
+        this.CPU  = CPU;
+        this.RAM  = RAM;
+        this.disk = disk;
     }
 
-    //Setters
-    public void setCPU(String CPU) {
-        this.CPU=CPU;
-    }
-
-    public void setRAM(String RAM) {
-        this.RAM=RAM;
-    }
-
-    public void setDisk(String disk) {
-        this.disk=disk;
-    }
-
-    //Getters
+    //Getters only - no setters, as this class is immutable
     public String getCPU() {
         return this.CPU;
     }
