@@ -1,7 +1,8 @@
 //Computer class: manages computer CPU, RAM and Disk information.
 //This class is immutable - all fields are set once via the constructor and cannot be changed afterwards.
+//Implements the device interface to allow it to be used as a common type with Laptop and Desktop.
 
-public class Computer {
+public class Computer implements ManageComputers.device {
 
     //Fields are private and final so they can only be assigned once, making the object immutable
     private final String CPU;
