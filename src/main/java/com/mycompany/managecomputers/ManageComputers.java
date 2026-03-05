@@ -1,5 +1,5 @@
-//Manage Computers program: maintains an ArrayList of Computer objects, 
-//can be either Laptop or Desktop, but never just Computer-type objects themselves
+//Manage Computers program: maintains a single ArrayList<Object> holding Laptop and Desktop objects.
+//Desktop and Laptop use composition (they contain a Computer object) rather than inheritance.
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,7 +25,7 @@ public class ManageComputers {
 
         do { //Start of main program loop
 
-            //Show computer data in ArrayList<Computer>
+            //Show computer data in ArrayList<Object>
             showComputers(computers); 
 
             //Display menu and return menu option selected by the user
@@ -66,10 +66,12 @@ public class ManageComputers {
         String menuOption="";
 
         //Display menu options on-screen
+        System.out.println("----------");
         System.out.println("A) Add Computer");
         System.out.println("D) Delete Computer");
         System.out.println("E) Edit Computer");
         System.out.println("X) eXit");
+        System.out.println("----------");
 
         //Get menu selection from keyboard
         System.out.print("Enter menu selection:");
@@ -80,7 +82,7 @@ public class ManageComputers {
         return menuOption;
     } //End of getMenuSelection
 
-    //Show data for all laptops and desktops stored in ArrayList<Computer> create in main() method
+    //Show data for all Laptop and Desktop objects stored in the single ArrayList<Object>
     private static void showComputers(ArrayList<Object> computers) {
         int computerListNumber=0; //This variable is used to hold the "list number" for each computer, starting at 1.
 
@@ -100,7 +102,7 @@ public class ManageComputers {
 
     } //End of showComputers
 
-    //Add a new Laptop or Desktop computer to the ArrayList<Computer>
+    //Add a new Laptop or Desktop computer to the ArrayList<Object>
     private static void addComputer(ArrayList<Object> computers, Scanner s) {
         String computerType="";
 
@@ -168,8 +170,8 @@ public class ManageComputers {
 
     } //End of deleteComputer
 
-    //Edit a computer. Since Laptop and Desktop are mutable classses/object get new data values and replace old
-    //attribute values in object being edited using object setter methods
+    //Edit a computer. Since Laptop and Desktop are now immutable, the old object cannot be changed.
+    //Instead, a new object is created with the updated values and replaces the old one in the ArrayList.
     private static void editComputer(ArrayList<Object> computers, Scanner s) {
         int computerListNumberToEdit=0;
         String computerType="";
@@ -193,7 +195,6 @@ public class ManageComputers {
                 computerType="desktop";
             }
 
-        
             //Edit computer
             switch(computerType) {
 
@@ -202,42 +203,28 @@ public class ManageComputers {
             
                     System.out.println("Editing a Laptop:");
 
-                    //Get CPU, RAM and Disk info, store in temporary Computer-type object
+                    //Get validated CPU, RAM and Disk info
                     tempComputer = getComputerData(s); 
 
                     String screenSize = getValidatedInput(s, "Enter screen size (" + WHITELIST_SCREENSIZE + "):", WHITELIST_SCREENSIZE);
 
-                    //Get reference to the object in ArrayList<Computer> to edit
-                    //Cast Computer to Laptop for setScreenSize call a few lines of code later
-                    Laptop laptopToEdit = (Laptop)computers.get(computerListNumberToEdit-1);
-
-                    //Use setter methods to change mutable object state
-                    laptopToEdit.setCPU(tempComputer.getCPU());
-                    laptopToEdit.setRAM(tempComputer.getRAM());
-                    laptopToEdit.setDisk(tempComputer.getDisk());
-                    laptopToEdit.setScreenSize(screenSize);
+                    //Replace the old immutable Laptop object at this index with a newly constructed one
+                    computers.set(computerListNumberToEdit-1, new Laptop(tempComputer.getCPU(), tempComputer.getRAM(), tempComputer.getDisk(), screenSize));
 
                     break;
 
-                //Editing a desktop, store in temporary Computer-type object
+                //Editing a desktop
                 case "desktop": 
 
                     System.out.println("Editing a Desktop:");
 
-                    //Get CPU, RAM and Disk info
+                    //Get validated CPU, RAM and Disk info
                     tempComputer = getComputerData(s); 
 
                     String GPUType = getValidatedInput(s, "Enter GPU (" + WHITELIST_GPU + "):", WHITELIST_GPU);
 
-                    //Get reference to the object in ArrayList<Computer> to edit
-                    //Cast Computer to Desktop for setGPUType call a few lines of code later
-                    Desktop desktopToEdit = (Desktop)computers.get(computerListNumberToEdit-1);
-
-                    //Use setter methods to change mutable object state
-                    desktopToEdit.setCPU(tempComputer.getCPU());
-                    desktopToEdit.setRAM(tempComputer.getRAM());
-                    desktopToEdit.setDisk(tempComputer.getDisk());
-                    desktopToEdit.setGPUType(GPUType);
+                    //Replace the old immutable Desktop object at this index with a newly constructed one
+                    computers.set(computerListNumberToEdit-1, new Desktop(tempComputer.getCPU(), tempComputer.getRAM(), tempComputer.getDisk(), GPUType));
 
                     break;
 
@@ -247,7 +234,6 @@ public class ManageComputers {
         else {
             System.out.println("Invalid computer number entered!");
         }
-
 
     } //End of editComputer
 
@@ -263,7 +249,6 @@ public class ManageComputers {
 
     } //End of getComputerData
 
-   
     //Whitelist input validation helper: repeatedly prompts the user until they enter a value that
     //exists in the comma-separated whitelist string. Returns the accepted value.
     //To add or remove allowed values, edit the whitelist constants declared at the top of this class.
