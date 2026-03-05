@@ -1,10 +1,22 @@
-//Manage Computers program: maintains a single ArrayList<Object> holding Laptop and Desktop objects.
+//Manage Computers program: maintains a single ArrayList<device> holding Laptop and Desktop objects.
 //Desktop and Laptop use composition (they contain a Computer object) rather than inheritance.
+//Both implement the device interface, which allows them to be stored together in ArrayList<device>.
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManageComputers {
+
+    //Device interface: defines the contract that all computer types must fulfil.
+    //Declared inside ManageComputers so all related code is kept in one place.
+    //Any class implementing this interface is guaranteed to have these methods,
+    //which allows Laptop and Desktop objects to be stored in a single ArrayList<device>.
+    public interface device {
+        String getCPU();
+        String getRAM();
+        String getDisk();
+        String toString();
+    }
 
     // WHITELISTS - edit these strings to allow or disallow accepted values.
     // Each accepted value must be separated by a comma.
@@ -16,16 +28,16 @@ public class ManageComputers {
 
     public static void main(String args[]) {
 
-        //This ArrayList will hold all the computers in the system. Since Desktop and Laptop no longer extend
-        //Computer (they use composition instead), the ArrayList type is Object so both can be stored in it.
-        ArrayList<Object> computers = new ArrayList<Object>(); 
+        //This ArrayList holds all computers using the device interface as the common type.
+        //Since Laptop and Desktop both implement device, both can be stored in this single list.
+        ArrayList<device> computers = new ArrayList<device>(); 
 
         Scanner s = new Scanner(System.in);
         String menuOption="";
 
         do { //Start of main program loop
 
-            //Show computer data in ArrayList<Object>
+            //Show computer data in ArrayList<device>
             showComputers(computers); 
 
             //Display menu and return menu option selected by the user
@@ -61,6 +73,7 @@ public class ManageComputers {
 
     } //End of main
 
+    //-----------------------------
     //Display menu and get user selection, return it
     private static String getMenuSelection(Scanner s) {
         String menuOption="";
@@ -82,8 +95,9 @@ public class ManageComputers {
         return menuOption;
     } //End of getMenuSelection
 
-    //Show data for all Laptop and Desktop objects stored in the single ArrayList<Object>
-    private static void showComputers(ArrayList<Object> computers) {
+    //-----------------------------
+    //Show data for all Laptop and Desktop objects stored in the single ArrayList<device>
+    private static void showComputers(ArrayList<device> computers) {
         int computerListNumber=0; //This variable is used to hold the "list number" for each computer, starting at 1.
 
         System.out.println("=========");
@@ -102,8 +116,9 @@ public class ManageComputers {
 
     } //End of showComputers
 
-    //Add a new Laptop or Desktop computer to the ArrayList<Object>
-    private static void addComputer(ArrayList<Object> computers, Scanner s) {
+    //-----------------------------
+    //Add a new Laptop or Desktop computer to the ArrayList<device>
+    private static void addComputer(ArrayList<device> computers, Scanner s) {
         String computerType="";
 
         Computer tempComputer=null;
@@ -150,8 +165,9 @@ public class ManageComputers {
         }
     } //End of addComputer
 
+    //-----------------------------
     //Delete a specified computer from the ArrayList
-    private static void deleteComputer(ArrayList<Object> computers, Scanner s) {
+    private static void deleteComputer(ArrayList<device> computers, Scanner s) {
         int computerListNumberToDelete=0;
 
         System.out.println("DELETE COMPUTER:-");
@@ -170,9 +186,10 @@ public class ManageComputers {
 
     } //End of deleteComputer
 
+    //-----------------------------
     //Edit a computer. Since Laptop and Desktop are now immutable, the old object cannot be changed.
     //Instead, a new object is created with the updated values and replaces the old one in the ArrayList.
-    private static void editComputer(ArrayList<Object> computers, Scanner s) {
+    private static void editComputer(ArrayList<device> computers, Scanner s) {
         int computerListNumberToEdit=0;
         String computerType="";
         Computer tempComputer=null;
@@ -237,6 +254,7 @@ public class ManageComputers {
 
     } //End of editComputer
 
+    //-----------------------------
     //Helper method to get data common to Laptop and Desktop (CPU, RAM and disk) objects. Returns a Computer-type object
     //holding these values as attributes. All fields are whitelist validated before the object is returned.
     private static Computer getComputerData(Scanner s) {
@@ -249,6 +267,7 @@ public class ManageComputers {
 
     } //End of getComputerData
 
+    //-----------------------------
     //Whitelist input validation helper: repeatedly prompts the user until they enter a value that
     //exists in the comma-separated whitelist string. Returns the accepted value.
     //To add or remove allowed values, edit the whitelist constants declared at the top of this class.
