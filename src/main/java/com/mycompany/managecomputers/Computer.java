@@ -2,6 +2,8 @@
 //This class is immutable - all fields are set once via the constructor and cannot be changed afterwards.
 //Implements the device interface to allow it to be used as a common type with Laptop and Desktop.
 
+// Cam Rieger - the classes now implement the empty device interface, which allows them to 
+// 				be added to the same arrayList
 public class Computer implements ManageComputers.device {
 
     //Fields are private and final so they can only be assigned once, making the object immutable
