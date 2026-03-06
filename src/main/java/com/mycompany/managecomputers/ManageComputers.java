@@ -7,7 +7,8 @@ import java.util.Scanner;
 
 public class ManageComputers {
 
-    //Device interface: defines the contract that all computer types must fulfil.
+    // Anne Marie Ala:
+    // Device interface: defines the contract that all computer types must fulfil.
     //Declared inside ManageComputers so all related code is kept in one place.
     //Any class implementing this interface is guaranteed to have these methods,
     //which allows Laptop and Desktop objects to be stored in a single ArrayList<device>.
@@ -18,7 +19,7 @@ public class ManageComputers {
         String toString();
     }
 
-    // WHITELISTS - edit these strings to allow or disallow accepted values.
+    // Vic Parra: WHITELISTS - edit these strings to allow or disallow accepted values.
     // Each accepted value must be separated by a comma.
     static final String WHITELIST_CPU        = "i5,i7";
     static final String WHITELIST_RAM        = "16,32";
