@@ -17,7 +17,7 @@ public class Laptop implements ManageComputers.device { //No longer extends Comp
         this.screenSize = null;
     }
 
-    //Parameterised constructor - the only way to set field values
+    // Estafano: Parameterised constructor - the only way to set field values
     public Laptop(String CPU, String RAM, String disk, String screenSize) {
         this.computer   = new Computer(CPU, RAM, disk); //Composed Computer object holds CPU, RAM and disk
         this.screenSize = screenSize;
